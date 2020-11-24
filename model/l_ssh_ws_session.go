@@ -254,9 +254,9 @@ func (sws *LogicSshWsSession) sendComboOutput(exitCh chan bool) {
 }
 
 func (sws *LogicSshWsSession) Wait(quitChan chan bool) {
+	defer setQuit(quitChan)
 	if err := sws.session.Wait(); err != nil {
 		logrus.WithError(err).Error("ssh session wait failed")
-		setQuit(quitChan)
 	}
 }
 
